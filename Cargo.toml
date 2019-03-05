@@ -1,0 +1,9 @@
+[package]
+name = "sorted_json_keys"
+version = "0.1.0"
+authors = ["AbrarNitk <abrar.nitk@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+serde_json = "1.0"
+failure = "~0.1.1"
