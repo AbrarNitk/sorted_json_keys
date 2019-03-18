@@ -1,6 +1,5 @@
-#[macro_use]
-extern crate serde_json;
 extern crate failure;
+extern crate serde_json;
 
 use failure::Fail;
 use std::collections::{BTreeMap, HashMap};
@@ -8,8 +7,17 @@ use std::collections::{BTreeMap, HashMap};
 type MyResult<T> = Result<T, failure::Error>;
 type JsonValue = serde_json::Value;
 
+#[derive(Copy, Clone, Eq, PartialEq, Debug, Fail)]
+pub enum ErrorKind {
+    #[fail(display = "Value error")]
+    ValueError,
+}
+
 pub fn sort_list(value: JsonValue) -> MyResult<JsonValue> {
-    let list: Vec<JsonValue> = value.as_array().map(|x| x.to_owned()).unwrap();
+    let list: Vec<JsonValue> = value
+        .as_array()
+        .map(|x| x.to_owned())
+        .ok_or(ErrorKind::ValueError)?;
     let mut new_list: Vec<JsonValue> = vec![];
     for json_value in list.into_iter() {
         new_list.push(sort_json(json_value)?)
@@ -18,7 +26,10 @@ pub fn sort_list(value: JsonValue) -> MyResult<JsonValue> {
 }
 
 pub fn sort_map(value: JsonValue) -> MyResult<JsonValue> {
-    let map = value.as_object().map(|x| x.to_owned()).unwrap();
+    let map = value
+        .as_object()
+        .map(|x| x.to_owned())
+        .ok_or(ErrorKind::ValueError)?;
     let mut new_map = HashMap::new();
     for (key, value) in map.into_iter() {
         new_map.insert(key, sort_json(value)?);
