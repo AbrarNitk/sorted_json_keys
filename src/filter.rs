@@ -1,6 +1,4 @@
-#[macro_use]
-extern crate serde_json;
-
+use serde_json;
 use serde_json::Value as JsonValue;
 
 pub fn filter_map<F>(
@@ -72,31 +70,4 @@ where
         JsonValue::Object(map) => JsonValue::Object(filter_map(map, f)),
         JsonValue::Bool(flag) => JsonValue::Bool(flag),
     }
-}
-
-fn main() {
-    let j = filter(
-        json!([1,null,3,null,{"a": [1,2,3,4, "Abrar" ]}]),
-        &|value| match value {
-            JsonValue::Number(number) => {
-                if number.is_i64() && number.as_i64().unwrap() < 5 {
-                    true
-                } else {
-                    false
-                }
-            }
-
-            JsonValue::String(string) => {
-                if string == "Abrar" {
-                    false
-                } else {
-                    true
-                }
-            }
-
-            _ => true,
-        },
-    );
-    println!("{:?}", j);
-    ()
 }
