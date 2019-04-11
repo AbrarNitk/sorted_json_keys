@@ -35,7 +35,7 @@ where
     match data {
         JsonValue::Null => JsonValue::Null,
         JsonValue::String(v) => JsonValue::String(v),
-        JsonValue::Array(v) => JsonValue::Array(filter_list_for_map_keys(v, &f)),
+        JsonValue::Array(v) => JsonValue::Array(filter_list_for_map_keys(v, f)),
         JsonValue::Number(number) => JsonValue::Number(number),
         JsonValue::Object(map) => JsonValue::Object(filter_map_keys(map, f)),
         JsonValue::Bool(v) => JsonValue::Bool(v),

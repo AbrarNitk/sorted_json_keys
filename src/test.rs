@@ -45,3 +45,21 @@ fn filter_test() {
 
     assert_eq!(j, json!([1,3,{"a": [1,2,3,4]}]))
 }
+
+#[test]
+fn filter_map_keys() {
+    let j = json!(
+        {"e": 2, "f": 3, "a": 5, "b": 4, "c": 5}
+    );
+    let k = filter::filter_map_with_keys(
+        json!({"d": 1, "e": 2, "f": 3, "a": 5, "b": 4, "c": 5}),
+        &|key| {
+            if key.contains("d") {
+                false
+            } else {
+                true
+            }
+        },
+    );
+    assert_eq!(j, k)
+}
