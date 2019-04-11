@@ -1,6 +1,47 @@
 use serde_json;
 use serde_json::Value as JsonValue;
 
+pub fn filter_list_for_map_keys<F>(data: Vec<JsonValue>, f: &F) -> Vec<JsonValue>
+where
+    F: Fn(&str) -> bool,
+{
+    let mut vector = Vec::new();
+    for value in data.into_iter() {
+        vector.push(filter_map_with_keys(value, f));
+    }
+    vector
+}
+
+fn filter_map_keys<F>(
+    data: serde_json::Map<String, JsonValue>,
+    f: &F,
+) -> serde_json::Map<String, JsonValue>
+where
+    F: Fn(&str) -> bool,
+{
+    let mut map = serde_json::Map::new();
+    for (key, value) in data.into_iter() {
+        if f(&key) {
+            map.insert(key, filter_map_with_keys(value, f));
+        }
+    }
+    map
+}
+
+pub fn filter_map_with_keys<F>(data: JsonValue, f: &F) -> JsonValue
+where
+    F: Fn(&str) -> bool,
+{
+    match data {
+        JsonValue::Null => JsonValue::Null,
+        JsonValue::String(v) => JsonValue::String(v),
+        JsonValue::Array(v) => JsonValue::Array(filter_list_for_map_keys(v, &f)),
+        JsonValue::Number(number) => JsonValue::Number(number),
+        JsonValue::Object(map) => JsonValue::Object(filter_map_keys(map, f)),
+        JsonValue::Bool(v) => JsonValue::Bool(v),
+    }
+}
+
 pub fn filter_map<F>(
     data: serde_json::Map<String, JsonValue>,
     f: &F,
