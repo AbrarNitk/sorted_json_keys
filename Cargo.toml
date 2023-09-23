@@ -10,4 +10,4 @@ repository = "https://github.com/AbrarNitk/sorted_json_keys"
 
 [dependencies]
 serde_json = "1.0"
-failure = "~0.1.1"
+thiserror = "1.0"

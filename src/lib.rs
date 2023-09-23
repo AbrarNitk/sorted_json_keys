@@ -1,20 +1,19 @@
-extern crate failure;
-#[macro_use]
-extern crate serde_json;
-
 pub mod filter;
 pub mod sort;
 
 #[cfg(test)]
 pub mod test;
 
-use failure::Fail;
+use thiserror::Error;
 
-type MyResult<T> = Result<T, failure::Error>;
+type MyResult<T> = Result<T, ErrorKind>;
 type JsonValue = serde_json::Value;
 
-#[derive(Copy, Clone, Eq, PartialEq, Debug, Fail)]
+#[derive(Debug, Error)]
 pub enum ErrorKind {
-    #[fail(display = "Value error")]
+    #[error("ValueError")]
     ValueError,
+
+    #[error("SerdeJsonError : {0}")]
+    SerdeError(#[from] serde_json::Error),
 }
