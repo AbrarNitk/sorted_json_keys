@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "itoa"
-version = "0.4.3"
+version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1306f3464951f30e30d12373d31c79fbd52d236e5e896fd92f96ec7babbbe60b"
+checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
 name = "json_filter_sorted"
@@ -17,51 +17,72 @@ dependencies = [
 ]
 
 [[package]]
-name = "proc-macro2"
-version = "1.0.42"
+name = "memchr"
+version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c278e965f1d8cf32d6e0e96de3d3e79712178ae67986d9cf9151f51e95aac89b"
+checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
+
+[[package]]
+name = "proc-macro2"
+version = "1.0.89"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f139b0662de085916d1fb67d2b4169d1addddda1919e696f3252b740b629986e"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
 name = "quote"
-version = "1.0.20"
+version = "1.0.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bcdf212e9776fbcb2d23ab029360416bb1706b1aea2d1a5ba002727cbcab804"
+checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
 dependencies = [
  "proc-macro2",
 ]
 
 [[package]]
 name = "ryu"
-version = "0.2.7"
+version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb9e9b8cde282a9fe6a42dd4681319bfb63f121b8a8ee9439c6f4107e58a46f7"
+checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
 
 [[package]]
 name = "serde"
-version = "1.0.89"
+version = "1.0.214"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "92514fb95f900c9b5126e32d020f5c6d40564c27a5ea6d1d7d9f157a96623560"
+checksum = "f55c3193aca71c12ad7890f1785d2b73e1b9f63a0bbc353c08ef26fe03fc56b5"
+dependencies = [
+ "serde_derive",
+]
+
+[[package]]
+name = "serde_derive"
+version = "1.0.214"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de523f781f095e28fa605cdce0f8307e451cc0fd14e2eb4cd2e98a355b147766"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
 
 [[package]]
 name = "serde_json"
-version = "1.0.39"
+version = "1.0.132"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5a23aa71d4a4d43fdbfaac00eff68ba8a06a51759a89ac3304323e800c4dd40d"
+checksum = "d726bfaff4b320266d395898905d0eba0345aae23b54aee3a737e260fd46db03"
 dependencies = [
  "itoa",
+ "memchr",
  "ryu",
  "serde",
 ]
 
 [[package]]
 name = "syn"
-version = "1.0.98"
+version = "2.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c50aef8a904de4c23c788f104b7dddc7d6f79c647c7c8ce4cc8f73eb0ca773dd"
+checksum = "5023162dfcd14ef8f32034d8bcd4cc5ddc61ef7a247c024a33e24e1f24d21b56"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -70,18 +91,18 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "1.0.31"
+version = "1.0.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd829fe32373d27f76265620b5309d0340cb8550f523c1dda251d6298069069a"
+checksum = "5d11abd9594d9b38965ef50805c5e469ca9cc6f197f883f717e0269a3057b3d5"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "1.0.31"
+version = "1.0.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0396bc89e626244658bef819e22d0cc459e795a5ebe878e6ec336d1674a8d79a"
+checksum = "ae71770322cbd277e69d762a16c444af02aa0575ac0d174f0b9562d3b37f8602"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -90,6 +111,6 @@ dependencies = [
 
 [[package]]
 name = "unicode-ident"
-version = "1.0.2"
+version = "1.0.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15c61ba63f9235225a22310255a29b806b907c9b8c964bcbd0a2c70f3f2deea7"
+checksum = "e91b56cd4cadaeb79bbf1a5645f6b4f8dc5bde8834ad5894a8db35fda9efa1fe"
