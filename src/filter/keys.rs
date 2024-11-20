@@ -1,16 +1,5 @@
+use crate::filter::utils::key_join;
 use serde_json::{Map, Value as JsonValue, Value};
-
-fn join(s: &str, j: &str) -> String {
-    if s.is_empty() {
-        return String::from(j);
-    }
-
-    if j.is_empty() {
-        return String::from(s);
-    }
-
-    format!("{}.{}", s, j)
-}
 
 pub fn filter_array<F>(value: Vec<JsonValue>, parent_key: &str, f: &F) -> JsonValue
 where
@@ -20,13 +9,13 @@ where
     for value in value.into_iter() {
         match value {
             Value::Array(arr) => {
-                let filtered = filter_array(arr, join(parent_key, "[]").as_str(), f);
+                let filtered = filter_array(arr, key_join(parent_key, "[]").as_str(), f);
                 if !filtered.is_null() {
                     array.push(filtered);
                 }
             }
             Value::Object(map) => {
-                let filtered = filter_map(map, join(parent_key, "[]").as_str(), f);
+                let filtered = filter_map(map, key_join(parent_key, "[]").as_str(), f);
                 if !filtered.is_null() {
                     array.push(filtered);
                 }
@@ -53,10 +42,10 @@ where
 {
     let mut map = Map::new();
     for (key, value) in value.into_iter() {
-        if f(join(parent_key, &key).as_str()) {
+        if f(key_join(parent_key, &key).as_str()) {
             map.insert(key, value);
         } else {
-            let value = filter_util(value, join(parent_key, &key).as_str(), f);
+            let value = filter_util(value, key_join(parent_key, &key).as_str(), f);
             if !value.is_null() {
                 map.insert(key, value);
             }
