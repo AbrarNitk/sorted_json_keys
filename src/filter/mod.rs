@@ -2,6 +2,8 @@ pub mod get;
 pub mod keys;
 pub(crate) mod utils;
 
+pub use get::get as get_key;
+
 use serde_json;
 use serde_json::Value as JsonValue;
 
