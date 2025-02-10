@@ -1,4 +1,5 @@
 pub mod filter;
+pub mod path;
 pub mod sort;
 
 #[cfg(test)]
